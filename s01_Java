@@ -1,0 +1,48 @@
+package eu.ase.oop;
+
+import java.security.*;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.CertificateException;
+
+public class progMainCertificate {
+    public static void main(String[] args){
+        certificate c1= new certificate(777, "c1" );
+        certificate c2= new certificate(888, "c2" );
+        System.out.println(c1);
+        System.out.println("c1: " + c1.getId()+ " "+ c1.getName());
+        //shallow copy, pointeaza la adresa
+        c2=c1;
+        System.out.println(c2);
+        c2.setId(333);
+        System.out.println("c1: " + c1.getId()+ " "+ c1.getName());
+        System.out.println("c2: " + c2.getId()+ " "+ c2.getName());
+
+        //deep copy, alocam spatiu
+        //o parte s a facut in clasa
+        certificate c3= c1.myClone();
+        System.out.println("c3: " + c3.getId()+ " "+ c3.getName());
+        System.out.println(c3);
+
+        //se da alt id si se modif doar id ul lui c3 pt ca am fct deep copy
+        //c3.setId(555);
+        System.out.println("c1: " + c1.getId()+ " "+ c1.getName());
+        System.out.println("c2: " + c2.getId()+ " "+ c2.getName());
+        System.out.println("c3: " + c3.getId()+ " "+ c3.getName());
+        //verificam daca c1=c2, nu putem supraincarca op ==
+            boolean eq= c1==c2;
+            System.out.println(eq);
+            eq=c1==c3;
+            System.out.println(eq);//da fals pentru ca zonele de memorie sunt diferite intre c1 si c3, au adrese diferite, se compara adresele
+        //ca sa comparam camp cu camp trb sa dam overrite la metoda initiala de comparare, pt ca eq by default compara doar pointerii
+        //s a facut in clasa
+
+        boolean equals =c1.equals(c3);
+        System.out.println("c1 equals c3  " + equals);
+
+
+    //daca vrem sa cautam o clasa se da dublu shift, doar in intellij
+    //in ja va nu se supraincarca operatorii
+        //se fac mosteniri din alte clase. toate clasele din java mostenesc clasa object
+    }
+}
